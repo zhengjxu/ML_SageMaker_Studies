@@ -42,6 +42,7 @@ if __name__ == '__main__':
     parser.add_argument('--data-dir', type=str, default=os.environ['SM_CHANNEL_TRAIN'])
     
     ## TODO: Add any additional arguments that you will need to pass into your model
+    parser.add_argument("--min-samples-leaf", type=int, default=3)
     
     # args holds all passed-in arguments
     args = parser.parse_args()
@@ -59,10 +60,14 @@ if __name__ == '__main__':
     
 
     ## TODO: Define a model 
-    model = None
+    from sklearn.ensemble import RandomForestClassifier
+    min_samples_leaf = args.min_samples_leaf
+    model = RandomForestClassifier(20, min_samples_leaf = min_samples_leaf)
     
     
     ## TODO: Train the model
+    model.fit(train_x, train_y)
+    
     
     
     
